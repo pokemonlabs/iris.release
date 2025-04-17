@@ -7,13 +7,19 @@ Quick setup for the IRIS Operator environment using Docker.
 Run this command to download and execute the setup script:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/shanurcsenitap/iris-operator/main/docker/run.sh | bash
+curl -fsSL https://raw.githubusercontent.com/pokemonlabs/iris.release/refs/heads/main/docker/run.sh | bash
 ```
 
 Or with wget:
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/shanurcsenitap/iris-operator/main/docker/run.sh | bash
+wget -qO- https://raw.githubusercontent.com/pokemonlabs/iris.release/refs/heads/main/docker/run.sh | bash
+```
+
+Or directly run:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/pokemonlabs/iris.release/refs/heads/main/docker/docker-compose.yaml -o docker-compose.yaml && docker-compose up -d
 ```
 
 ## Manual Setup
