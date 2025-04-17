@@ -1,9 +1,9 @@
 #!/bin/bash
 # IRIS Operator Environment Launcher
-# https://github.com/shanurcsenitap/iris-operator
+# https://github.com/pokemonlabs/iris.release
 #
 # This script automates the setup and launch of the IRIS Operator environment
-# Usage: curl -fsSL https://raw.githubusercontent.com/shanurcsenitap/iris-operator/main/docker/run.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/pokemonlabs/iris.release/refs/heads/main/docker/run.sh | bash
 
 # Function for colored output
 log() {
@@ -39,14 +39,25 @@ fi
 log "blue" "🚀 Starting IRIS Operator environment..."
 log "yellow" "⏳ Pulling container images and starting services. This may take a few minutes on first run."
 
+# Verify repository URL and set base URL
+REPO_URL="https://github.com/pokemonlabs/iris.release.git"
+BASE_URL="https://raw.githubusercontent.com/pokemonlabs/iris.release/refs/heads/main"
+
 # Check if docker-compose.yaml exists in current directory
 if [ ! -f "docker-compose.yaml" ]; then
   log "yellow" "⏳ docker-compose.yaml not found in current directory, attempting to download..."
-  curl -fsSL https://raw.githubusercontent.com/shanurcsenitap/iris-operator/main/docker/docker-compose.yaml -o docker-compose.yaml
+  
+  # Verify repository exists and is accessible
+  if ! curl -fsSL "$REPO_URL/info/refs?service=git-upload-pack" &> /dev/null; then
+    log "red" "❌ ERROR: Unable to access repository. Please check your internet connection and repository URL."
+    exit 1
+  fi
+  
+  curl -fsSL "$BASE_URL/docker/docker-compose.yaml" -o docker-compose.yaml
   
   if [ ! -f "docker-compose.yaml" ]; then
     log "red" "❌ Failed to download docker-compose.yaml. Please download it manually from:"
-    log "yellow" "   https://github.com/shanurcsenitap/iris-operator"
+    log "yellow" "   https://github.com/pokemonlabs/iris.release"
     exit 1
   else
     log "green" "✅ docker-compose.yaml downloaded successfully!"
@@ -113,7 +124,7 @@ log "yellow" "ℹ️  To view container logs: docker-compose logs"
 log "yellow" "ℹ️  To restart services: docker-compose restart"
 
 # Check if the container is actually running
-if docker ps | grep -q "shanurcsenitap/operator"; then
+if docker ps | grep -q "pokemonlabs/iris"; then
   log "green" "🟢 Container status: Running"
 else
   log "red" "🔴 Container status: Not running. There might be an issue with the container startup."
