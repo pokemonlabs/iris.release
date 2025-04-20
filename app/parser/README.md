@@ -13,7 +13,8 @@
 
 A streamlined solution for efficient parsing without compromising flexibility.
 
-
+## Model Weights
+We have pushed model weights to gitlab under weights folder. You can train your own yolo models and use them with this project.
 
 # GitLab Codebase Hosting  
 All our projects are hosted on **GitLab** for seamless version control and collaboration.  
