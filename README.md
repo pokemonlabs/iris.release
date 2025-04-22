@@ -7,3 +7,6 @@ Desktop / Web and Mobile releases for iris agent
 
 ## Chrome Extension
 - https://github.com/pokemonlabs/iris_chrome_extension
+
+## QA framework using Iris
+- https://github.com/pokemonlabs/worker_qa
